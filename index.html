@@ -4,30 +4,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description"
-        content="FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from general 3DGS models to LiDAR. Convert any pretrained 3DGS to watertight mesh, then perform BVH-accelerated LiDAR ray-casting at 500+ FPS.">
+        content="FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from general 3DGS models to LiDAR. Convert any pretrained 3DGS to a watertight mesh, then perform BVH-accelerated LiDAR ray-casting at 500+ FPS.">
   <meta name="keywords" content="FGGS-LiDAR, 3D Gaussian Splatting, LiDAR simulation, TSDF, BVH, Ray Casting">
   <title>FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR</title>
 
   <!-- Fonts & Styles -->
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
-  <!-- JS -->
+  <!-- JS (可按需保留最小依赖) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
 </head>
 <body>
 
-<!-- Navbar (可按需添加你自己的导航项) -->
+<!-- Navbar（极简） -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -36,25 +28,17 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="#">
-        <span class="icon"><i class="fas fa-home"></i></span>
-      </a>
-      <!-- 下拉可自定义你的其他项目链接；不需要可删除 -->
-      <!--
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">Projects</a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="#">Project A</a>
-          <a class="navbar-item" href="#">Project B</a>
-        </div>
-      </div>
-      -->
+      <a class="navbar-item" href="#top">Home</a>
+      <a class="navbar-item" href="#abstract">Abstract</a>
+      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#results">Results</a>
+      <a class="navbar-item" href="#bibtex">BibTeX</a>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
-<section class="hero">
+<section id="top" class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
@@ -63,7 +47,7 @@
             FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR
           </h1>
 
-          <!-- Authors & Affiliation（可按需改为匿名/删外链） -->
+          <!-- Authors & Affiliation（可按需匿名/调整） -->
           <div class="is-size-5 publication-authors">
             <span class="author-block">Junzhe Wu<sup>1</sup>,</span>
             <span class="author-block">Yufei Jia<sup>2</sup>,</span>
@@ -83,38 +67,18 @@
             <span class="author-block"><sup>5</sup>AIR, Tsinghua University</span>
           </div>
 
-          <!-- Links -->
+          <!-- Links（无图标按钮） -->
           <div class="column has-text-centered">
             <div class="publication-links">
               <span class="link-block">
-                <a href="static/paper.pdf" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper (PDF)</span>
-                </a>
+                <a href="static/pdf/paper.pdf" class="external-link button is-normal is-rounded is-dark">Paper (PDF)</a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2509.17390" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span>
-                </a>
+                <a href="https://arxiv.org/abs/2509.17390" class="external-link button is-normal is-rounded is-dark">arXiv</a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/TATP-233/FGGS-LiDAR" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
-                </a>
+                <a href="https://github.com/TATP-233/FGGS-LiDAR" class="external-link button is-normal is-rounded is-dark">Code</a>
               </span>
-              <!-- 如有演示视频请替换为你的外链；无则可注释掉 -->
-              <span class="link-block">
-                <a href="https://www.youtube.com/" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="fab fa-youtube"></i></span><span>Video</span>
-                </a>
-              </span>
-              <!-- 如有数据下载链接可保留；否则删除 -->
-              <!--
-              <span class="link-block">
-                <a href="https://zenodo.org/record/xxxxx" class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon"><i class="far fa-images"></i></span><span>Data</span>
-                </a>
-              </span>
-              -->
             </div>
           </div>
 
@@ -124,28 +88,22 @@
   </div>
 </section>
 
-<!-- Teaser -->
+<!-- Demo Video（仅保留你提供的本地演示） -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <!-- 方案一：自托管小视频（几十 MB 内）；建议外链 iframe（见下） -->
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4" type="video/mp4">
+      <video id="demo" controls autoplay muted loop playsinline style="width:100%;max-height:520px;border-radius:12px;">
+        <source src="./static/videos/demo_show.mp4" type="video/mp4">
       </video>
-      <h2 class="subtitle has-text-centered">
-        Convert any pretrained <b>3DGS</b> into a watertight mesh and run <b>BVH-accelerated LiDAR</b> ray-casting at real-time rates.
+      <h2 class="subtitle has-text-centered" style="margin-top:12px;">
+        End-to-end pipeline demo (3DGS → Mesh → LiDAR).
       </h2>
-      <!-- 方案二（推荐）：外链播放器
-      <div class="publication-video">
-        <iframe src="https://www.youtube.com/embed/YOUR_ID" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      </div>
-      -->
     </div>
   </div>
 </section>
 
 <!-- Abstract -->
-<section class="section">
+<section id="abstract" class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -153,7 +111,7 @@
         <div class="content has-text-justified">
           <p>
             <b>FGGS-LiDAR</b> bridges general 3D Gaussian Splatting (3DGS) assets and high-performance LiDAR simulation.
-            We introduce a <i>prior-free</i> 3DGS-to-Mesh pipeline based on volumetric discretization and narrow-band <b>TSDF</b>,
+            We introduce a <i>prior-free</i> 3DGS-to-mesh pipeline based on volumetric discretization and narrow-band <b>TSDF</b>,
             producing watertight, topologically consistent meshes from arbitrary pretrained 3DGS models—without LiDAR-specific supervision or architectural changes.
             Paired with a fully GPU-accelerated, BVH-based ray-casting engine, our simulator renders first-hit ranges at <b>500+ FPS</b> on million-triangle scenes while preserving geometric fidelity.
           </p>
@@ -168,79 +126,100 @@
   </div>
 </section>
 
-<!-- Method (Pipeline) -->
-<section class="section">
+<!-- Method -->
+<section id="method" class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Method</h2>
         <div class="content has-text-justified">
           <ol>
-            <li><b>3DGS → Occupancy Volume (LBVH-accelerated):</b> build AABB per Gaussian, construct LBVH, tile-wise cull & accumulate density, threshold to binary occupancy, extract surface voxels.</li>
-            <li><b>Narrow-band TSDF & Isosurface:</b> flood-fill outside labeling, layered distance propagation, truncation; Marching Cubes to a watertight mesh, then structure-first simplification and non-shrinking smoothing.</li>
-            <li><b>GPU LiDAR Ray-Casting:</b> per-beam BVH traversal with early termination; SoA layout, shared-memory caching, warp-coherent traversal for high throughput.</li>
+            <li><b>3DGS → Occupancy Volume (LBVH-accelerated):</b> AABB per Gaussian, LBVH construction, tile-wise culling & density accumulation, occupancy thresholding, surface voxel extraction.</li>
+            <li><b>Narrow-band TSDF & Isosurface:</b> outside flood-fill for robust sign, layered distance propagation & truncation; Marching Cubes, structure-first simplification & non-shrinking smoothing.</li>
+            <li><b>GPU LiDAR Ray-Casting:</b> per-beam BVH traversal with early termination; SoA layout, shared caching, warp-coherent traversal for high throughput.</li>
           </ol>
         </div>
-        <div class="has-text-centered">
-          <img src="./static/images/pipeline.png" alt="Pipeline overview (3DGS→Mesh→LiDAR)" style="max-width:100%; border-radius:12px;">
-          <p class="is-size-6 has-text-grey">Pipeline overview: voxelization → TSDF → Marching Cubes → GPU LiDAR ray-casting.</p>
+
+        <!-- Pipeline 总图（PDF） -->
+        <div class="box" style="border-radius:14px;">
+          <h3 class="title is-5 has-text-centered">Pipeline Overview</h3>
+          <object data="./static/images/teaser.pdf" type="application/pdf" style="width:100%;height:560px;border-radius:12px;">
+            <p>Your browser can't display PDF. <a href="./static/images/teaser.pdf">Open PDF</a></p>
+          </object>
         </div>
+
+        <!-- 渲染示例（PDF） -->
+        <div class="box" style="border-radius:14px;">
+          <h3 class="title is-5 has-text-centered">Scene Rendering</h3>
+          <object data="./static/images/rendering.pdf" type="application/pdf" style="width:100%;height:560px;border-radius:12px;">
+            <p>Your browser can't display PDF. <a href="./static/images/rendering.pdf">Open PDF</a></p>
+          </object>
+        </div>
+
+        <!-- 体素化 / 网格化（PDF）两列并排 -->
+        <div class="columns">
+          <div class="column">
+            <div class="box" style="border-radius:14px;">
+              <h3 class="title is-6 has-text-centered">3DGS Voxelization</h3>
+              <object data="./static/images/voxelization.pdf" type="application/pdf" style="width:100%;height:480px;border-radius:12px;">
+                <p>Open <a href="./static/images/voxelization.pdf">voxelization.pdf</a></p>
+              </object>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box" style="border-radius:14px;">
+              <h3 class="title is-6 has-text-centered">Denoised → Mesh</h3>
+              <object data="./static/images/denoised.pdf" type="application/pdf" style="width:100%;height:480px;border-radius:12px;">
+                <p>Open <a href="./static/images/denoised.pdf">denoised.pdf</a></p>
+              </object>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- Results (placeholders, 可替换为你的图/表或嵌入 GIF) -->
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-multiline">
-        <div class="column is-6">
-          <div class="box has-text-centered">
-            <img src="./static/images/indoor_result.png" alt="Indoor Result" style="border-radius:12px;">
-            <p class="is-size-6">Indoor: CD ≈ 4.07&nbsp;mm, F-score 0.994</p>
-          </div>
-        </div>
-        <div class="column is-6">
-          <div class="box has-text-centered">
-            <img src="./static/images/outdoor_result.png" alt="Outdoor Result" style="border-radius:12px;">
-            <p class="is-size-6">Outdoor: CD ≈ 17.0&nbsp;mm, F-score 0.982</p>
-          </div>
-        </div>
-        <div class="column is-6">
-          <div class="box has-text-centered">
-            <img src="./static/images/fps_plot.png" alt="Frame rate vs triangle count" style="border-radius:12px;">
-            <p class="is-size-6">Simulation frame-rate vs mesh complexity (BVH keeps near-log scaling).</p>
-          </div>
-        </div>
-        <div class="column is-6">
-          <div class="box has-text-centered">
-            <img src="./static/images/throughput_plot.png" alt="Throughput vs triangle count" style="border-radius:12px;">
-            <p class="is-size-6">Throughput &gt; 7.5×10<sup>7</sup> pts/s at multi-M triangle scale.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Video (外链示例，替换 YOUR_ID 或注释掉此块) -->
-<section class="section">
+<!-- Results -->
+<section id="results" class="section">
   <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Demo Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/YOUR_ID?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <!-- LiDAR vs Depth（PDF） -->
+    <div class="box" style="border-radius:14px;">
+      <h3 class="title is-5 has-text-centered">LiDAR vs Depth</h3>
+      <object data="./static/images/depth.pdf" type="application/pdf" style="width:100%;height:560px;border-radius:12px;">
+        <p>Your browser can't display PDF. <a href="./static/images/depth.pdf">Open PDF</a></p>
+      </object>
+    </div>
+
+    <!-- FPS & Throughput（PDF）两列并排 -->
+    <div class="columns">
+      <div class="column">
+        <div class="box" style="border-radius:14px;">
+          <h3 class="title is-6 has-text-centered">LiDAR FPS vs Triangle Count</h3>
+          <object data="./static/images/lidar_fps.pdf" type="application/pdf" style="width:100%;height:500px;border-radius:12px;">
+            <p>Open <a href="./static/images/lidar_fps.pdf">lidar_fps.pdf</a></p>
+          </object>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box" style="border-radius:14px;">
+          <h3 class="title is-6 has-text-centered">LiDAR Throughput vs Triangle Count</h3>
+          <!-- 如果你的文件名确实是 lidar_throught.pdf（少了 put），保持一致，否则改成 lidar_throughput.pdf -->
+          <object data="./static/images/lidar_throught.pdf" type="application/pdf" style="width:100%;height:500px;border-radius:12px;">
+            <p>Open <a href="./static/images/lidar_throught.pdf">lidar_throught.pdf</a></p>
+          </object>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
 <!-- BibTeX -->
-<section class="section" id="BibTeX">
+<section id="bibtex" class="section">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
 <pre><code>@article{FGGS_LiDAR_2025,
@@ -256,9 +235,9 @@
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <!-- 左侧图标按钮（可改/可删） -->
-      <a class="icon-link" href="assets/paper.pdf"><i class="fas fa-file-pdf"></i></a>
-      <a class="icon-link" href="https://github.com/TATP-233/FGGS-LiDAR"><i class="fab fa-github"></i></a>
+      <a class="button is-small is-dark is-rounded" href="static/pdf/paper.pdf">Paper (PDF)</a>
+      <a class="button is-small is-dark is-rounded" href="https://github.com/TATP-233/FGGS-LiDAR">Code</a>
+      <a class="button is-small is-dark is-rounded" href="https://arxiv.org/abs/2509.17390">arXiv</a>
     </div>
     <div class="columns is-centered">
       <div class="column is-8">
