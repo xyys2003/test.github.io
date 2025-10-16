@@ -14,8 +14,22 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
-  <!-- JS (可按需保留最小依赖) -->
+  <!-- 仅用于最小依赖 -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- 关键样式：去掉 PDF 外框/工具栏，并圆角 -->
+  <style>
+    .pdf-box { border-radius: 12px; overflow: hidden; }
+    .pdf-embed {
+      width: 100%;
+      height: 560px;     /* 按需调高 */
+      border: none;      /* 去边框 */
+      outline: none;     /* 去轮廓 */
+      display: block;
+    }
+    /* 双列 PDF 稍微矮一点 */
+    .pdf-embed.sm { height: 480px; }
+  </style>
 </head>
 <body>
 
@@ -47,7 +61,6 @@
             FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR
           </h1>
 
-          <!-- Authors & Affiliation（可按需匿名/调整） -->
           <div class="is-size-5 publication-authors">
             <span class="author-block">Junzhe Wu<sup>1</sup>,</span>
             <span class="author-block">Yufei Jia<sup>2</sup>,</span>
@@ -88,12 +101,14 @@
   </div>
 </section>
 
-<!-- Demo Video（仅保留你提供的本地演示） -->
+<!-- Demo Video（仅本地演示） -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="demo" controls autoplay muted loop playsinline style="width:100%;max-height:520px;border-radius:12px;">
+      <video id="demo" controls autoplay muted playsinline preload="metadata"
+             style="width:100%;max-height:520px;border-radius:12px;">
         <source src="./static/videos/demo_show.mp4" type="video/mp4">
+        Your browser does not support the video tag.
       </video>
       <h2 class="subtitle has-text-centered" style="margin-top:12px;">
         End-to-end pipeline demo (3DGS → Mesh → LiDAR).
@@ -140,38 +155,34 @@
           </ol>
         </div>
 
-        <!-- Pipeline 总图（PDF） -->
-        <div class="box" style="border-radius:14px;">
+        <!-- Pipeline 总图（PDF，无外框） -->
+        <div class="box pdf-box">
           <h3 class="title is-5 has-text-centered">Pipeline Overview</h3>
-          <object data="./static/images/teaser.pdf" type="application/pdf" style="width:100%;height:560px;border-radius:12px;">
-            <p>Your browser can't display PDF. <a href="./static/images/teaser.pdf">Open PDF</a></p>
-          </object>
+          <iframe class="pdf-embed"
+                  src="./static/images/teaser.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
         </div>
 
-        <!-- 渲染示例（PDF） -->
-        <div class="box" style="border-radius:14px;">
+        <!-- 渲染示例（PDF，无外框） -->
+        <div class="box pdf-box">
           <h3 class="title is-5 has-text-centered">Scene Rendering</h3>
-          <object data="./static/images/rendering.pdf" type="application/pdf" style="width:100%;height:560px;border-radius:12px;">
-            <p>Your browser can't display PDF. <a href="./static/images/rendering.pdf">Open PDF</a></p>
-          </object>
+          <iframe class="pdf-embed"
+                  src="./static/images/rendering.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
         </div>
 
         <!-- 体素化 / 网格化（PDF）两列并排 -->
         <div class="columns">
           <div class="column">
-            <div class="box" style="border-radius:14px;">
+            <div class="box pdf-box">
               <h3 class="title is-6 has-text-centered">3DGS Voxelization</h3>
-              <object data="./static/images/voxelization.pdf" type="application/pdf" style="width:100%;height:480px;border-radius:12px;">
-                <p>Open <a href="./static/images/voxelization.pdf">voxelization.pdf</a></p>
-              </object>
+              <iframe class="pdf-embed sm"
+                      src="./static/images/voxelization.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
             </div>
           </div>
           <div class="column">
-            <div class="box" style="border-radius:14px;">
+            <div class="box pdf-box">
               <h3 class="title is-6 has-text-centered">Denoised → Mesh</h3>
-              <object data="./static/images/denoised.pdf" type="application/pdf" style="width:100%;height:480px;border-radius:12px;">
-                <p>Open <a href="./static/images/denoised.pdf">denoised.pdf</a></p>
-              </object>
+              <iframe class="pdf-embed sm"
+                      src="./static/images/denoised.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
             </div>
           </div>
         </div>
@@ -186,31 +197,28 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Results</h2>
 
-    <!-- LiDAR vs Depth（PDF） -->
-    <div class="box" style="border-radius:14px;">
+    <!-- LiDAR vs Depth（PDF，无外框） -->
+    <div class="box pdf-box">
       <h3 class="title is-5 has-text-centered">LiDAR vs Depth</h3>
-      <object data="./static/images/depth.pdf" type="application/pdf" style="width:100%;height:560px;border-radius:12px;">
-        <p>Your browser can't display PDF. <a href="./static/images/depth.pdf">Open PDF</a></p>
-      </object>
+      <iframe class="pdf-embed"
+              src="./static/images/depth.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
     </div>
 
     <!-- FPS & Throughput（PDF）两列并排 -->
     <div class="columns">
       <div class="column">
-        <div class="box" style="border-radius:14px;">
+        <div class="box pdf-box">
           <h3 class="title is-6 has-text-centered">LiDAR FPS vs Triangle Count</h3>
-          <object data="./static/images/lidar_fps.pdf" type="application/pdf" style="width:100%;height:500px;border-radius:12px;">
-            <p>Open <a href="./static/images/lidar_fps.pdf">lidar_fps.pdf</a></p>
-          </object>
+          <iframe class="pdf-embed sm"
+                  src="./static/images/lidar_fps.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
         </div>
       </div>
       <div class="column">
-        <div class="box" style="border-radius:14px;">
+        <div class="box pdf-box">
           <h3 class="title is-6 has-text-centered">LiDAR Throughput vs Triangle Count</h3>
-          <!-- 如果你的文件名确实是 lidar_throught.pdf（少了 put），保持一致，否则改成 lidar_throughput.pdf -->
-          <object data="./static/images/lidar_throught.pdf" type="application/pdf" style="width:100%;height:500px;border-radius:12px;">
-            <p>Open <a href="./static/images/lidar_throught.pdf">lidar_throught.pdf</a></p>
-          </object>
+          <!-- 如果你的真实文件是 throughput，请把文件名和这里都改成 lidar_throughput.pdf -->
+          <iframe class="pdf-embed sm"
+                  src="./static/images/lidar_throught.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
         </div>
       </div>
     </div>
