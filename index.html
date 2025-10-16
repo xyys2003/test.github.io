@@ -20,9 +20,8 @@
       border-radius: 12px;
       display: block;
       margin: 0 auto;
-      box-shadow: none; /* remove any default shadows */
+      box-shadow: none;
     }
-
     video.demo {
       width: 100%;
       max-height: 520px;
@@ -31,8 +30,6 @@
       margin: 0 auto;
       box-shadow: none;
     }
-
-    /* Remove Bulma box borders and background */
     .box {
       border: none !important;
       box-shadow: none !important;
@@ -41,36 +38,16 @@
       margin-top: 2.5rem;
       margin-bottom: 2.5rem;
     }
-
-    /* Better paragraph layout */
     p.explain {
       margin-top: 12px;
       text-align: justify;
       font-size: 1rem;
       line-height: 1.6;
     }
-
-    /* Spacing between title and figures */
-    h3.title {
-      margin-bottom: 1rem;
-    }
-
-    /* More comfortable section spacing */
-    section.section {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-    }
-
-    /* Footer text color */
-    footer.footer p {
-      color: #555;
-    }
-
-    /* Optional: light hover effect on images */
-    img.figure:hover {
-      transform: scale(1.01);
-      transition: transform 0.25s ease-in-out;
-    }
+    h3.title { margin-bottom: 1rem; }
+    section.section { padding-top: 3rem; padding-bottom: 3rem; }
+    footer.footer p { color: #555; }
+    img.figure:hover { transform: scale(1.01); transition: transform 0.25s ease-in-out; }
   </style>
 </head>
 
@@ -82,7 +59,7 @@
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="#top">Home</a>
       <a class="navbar-item" href="#abstract">Abstract</a>
-      <a class="navbar-item" href="#method">Method</a>
+      <a class="navbar-item" href="#system">System</a>
       <a class="navbar-item" href="#results">Results</a>
       <a class="navbar-item" href="#bibtex">BibTeX</a>
     </div>
@@ -113,7 +90,7 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video class="demo" controls autoplay muted loop playsinline>
+      <video class="demo" controls autoplay muted loop playsinline preload="metadata" poster="./static/images/teaser_01.png">
         <source src="./static/videos/demo_show.mp4" type="video/mp4">
         Your browser does not support HTML5 video.
       </video>
@@ -144,62 +121,72 @@
   </div>
 </section>
 
-<!-- Method -->
-<section id="method" class="section">
+<!-- ===== System (ordered blocks, no "Method" group) ===== -->
+<section id="system" class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Method</h2>
 
+    <!-- 1. System Overview -->
     <div class="box">
-      <h3 class="title is-5 has-text-centered">Pipeline Overview</h3>
-      <img src="./static/images/teaser_01.png" alt="Pipeline Overview" class="figure">
+      <h3 class="title is-5 has-text-centered">System Overview</h3>
+      <img src="./static/images/teaser_01.png" alt="System Overview" class="figure">
       <p class="explain">
-        The FGGS-LiDAR pipeline integrates Gaussian-based scene representation with geometric reconstruction and sensor simulation. 
-        It first converts a pretrained 3DGS model into voxelized occupancy fields, followed by TSDF fusion to reconstruct watertight surfaces. 
-        A GPU-based BVH acceleration structure enables real-time ray traversal for LiDAR simulation, achieving sub-millisecond per-frame rendering. 
-        This unified design bridges 3D Gaussian representations and high-fidelity LiDAR perception for downstream embodied tasks.
+        FGGS-LiDAR integrates Gaussian-based scene representation, watertight mesh reconstruction, and GPU-parallel LiDAR simulation. 
+        Pretrained 3DGS assets are discretized into occupancy volumes, fused into a narrow-band TSDF, and converted to meshes. 
+        A BVH-accelerated ray-casting engine then performs first-hit queries at real-time rates, enabling physically grounded, scalable LiDAR sensing directly from general 3DGS content.
       </p>
     </div>
 
-    <div class="box">
-      <h3 class="title is-5 has-text-centered">Scene Rendering</h3>
-      <img src="./static/images/rendering_01.png" alt="Rendering" class="figure">
-      <p class="explain">
-        Our reconstructed meshes preserve the photometric and geometric details of the original 3DGS scenes. 
-        Compared with direct Gaussian splat rendering, the mesh-based representation provides consistent global structure, sharper boundaries, 
-        and accurate surface normals, which are essential for physically grounded LiDAR ray interactions. 
-        The resulting renderings demonstrate that our conversion process maintains fidelity while enabling real-time simulation.
-      </p>
-    </div>
-
+    <!-- 2. 3DGS Voxelization -->
     <div class="box">
       <h3 class="title is-5 has-text-centered">3DGS Voxelization</h3>
       <img src="./static/images/voxelization_01.png" alt="Voxelization" class="figure">
       <p class="explain">
-        We voxelize the continuous Gaussian fields into discrete occupancy volumes using an LBVH-accelerated accumulation process. 
-        Each Gaussian contributes probabilistically to local density fields, and a sparse voxel grid is efficiently updated on the GPU. 
-        This step captures fine geometric structures while maintaining high computational throughput, serving as the foundation for TSDF-based surface recovery.
+        We convert continuous Gaussian fields into sparse occupancy grids via LBVH-accelerated accumulation. 
+        Each Gaussian contributes probabilistically to local density, preserving thin structures and high-frequency geometry while keeping the memory footprint compact. 
+        This forms the basis for robust TSDF reconstruction in the next stage.
       </p>
     </div>
 
+    <!-- 3. Denoised → Mesh -->
     <div class="box">
       <h3 class="title is-5 has-text-centered">Denoised → Mesh</h3>
       <img src="./static/images/denoised_01.png" alt="Denoised Mesh" class="figure">
       <p class="explain">
-        To produce clean and watertight surfaces, we apply narrow-band TSDF propagation and surface extraction via Marching Cubes. 
-        The resulting meshes are further refined by structure-preserving smoothing to remove local artifacts without shrinking geometry. 
-        This ensures physically valid, topologically consistent meshes suitable for ray-based simulation and robotic perception benchmarks.
+        We perform narrow-band TSDF propagation and extract surfaces with Marching Cubes, followed by structure-preserving smoothing. 
+        The resulting meshes are watertight and topologically consistent, eliminating local artifacts without shrinking geometry. 
+        Such meshes are ideal for accurate, physically meaningful ray–triangle intersection in LiDAR simulation.
       </p>
     </div>
 
+    <!-- 4. Scene Rendering (moved after Mesh) -->
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">Scene Rendering</h3>
+      <img src="./static/images/rendering_01.png" alt="Rendering" class="figure">
+      <p class="explain">
+        Mesh-based rendering retains the global structure and sharp boundaries of the original scenes while providing reliable normals and visibility for sensing. 
+        Compared to splat-only rendering, the reconstructed geometry offers consistent surfaces and fewer blending artifacts, 
+        ensuring high visual fidelity and compatibility with physically grounded LiDAR ray interactions.
+      </p>
+    </div>
+
+    <!-- 5. Depth Limitations (rewritten with your content) -->
     <div class="box">
       <h3 class="title is-5 has-text-centered">Depth Limitations</h3>
       <img src="./static/images/depth_01.png" alt="Depth Limitations" class="figure">
       <p class="explain">
-        Depth-based representations often suffer from missing regions, discontinuities, and unstable edges, especially under occlusion or reflective surfaces. 
-        Such artifacts lead to inaccurate geometry and hinder physically consistent simulation. 
-        Our approach overcomes these limitations by reconstructing continuous, watertight surfaces that preserve fine details and eliminate depth ambiguity.
+        <b>Imaging principle.</b> In 3DGS, “depth” is an opacity-weighted expectation along the camera ray— a view-dependent average rather than a true geometric intersection. 
+        This leads to characteristic artifacts: edges and thin structures appear blurred or widened due to splat blending, 
+        and underconstrained regions (back-facing or rarely observed surfaces, low-texture areas, glossy materials) produce dropouts or holes. 
+        LiDAR instead reports first-return geometric distances, directly tied to scene geometry and free of averaging artifacts.
+      </p>
+      <p class="explain">
+        <b>Computational efficiency.</b> Depth rendering in 3DGS accumulates over many anisotropic Gaussians per pixel; 
+        its cost and memory grow with image resolution and footprint, making high-res rendering expensive. 
+        Our simulator performs BVH-accelerated ray–triangle intersections whose cost mainly scales with beam and triangle counts. 
+        Independent rays enable highly efficient GPU parallelization and stable performance across scenes.
       </p>
     </div>
+
   </div>
 </section>
 
@@ -212,9 +199,10 @@
       <h3 class="title is-5 has-text-centered">LiDAR FPS vs Triangle Count</h3>
       <img src="./static/images/lidar_fps_01.png" alt="LiDAR FPS" class="figure">
       <p class="explain">
-        FGGS-LiDAR achieves stable real-time simulation performance across a wide range of mesh complexities. 
-        Even at multi-million triangle scales, our BVH-based ray traversal maintains near-logarithmic time complexity and consistent frame rates above 500 FPS. 
-        This enables efficient large-scale experiments with minimal computational overhead.
+        <b>Frame rate.</b> Owing to the BVH acceleration structure, across all evaluated 3DGS scenes (up to ~6M Gaussian primitives) we observe no systematic degradation of simulation frame rate with increasing primitive count. 
+        Within this scale, performance is effectively decoupled from raw cardinality. 
+        Instead, traversal efficiency is primarily governed by spatial distribution characteristics—such as clustering patterns, local density heterogeneity, and occlusion layering—rather than absolute counts. 
+        Our system delivers <i>far beyond real-time performance</i> and ranks among the fastest in peer comparisons, highlighting the efficiency of the proposed pipeline.
       </p>
     </div>
 
@@ -222,9 +210,9 @@
       <h3 class="title is-5 has-text-centered">LiDAR Throughput vs Triangle Count</h3>
       <img src="./static/images/lidar_throughput_01.png" alt="LiDAR Throughput" class="figure">
       <p class="explain">
-        The GPU-parallelized LiDAR simulator reaches an effective throughput exceeding 7.5×10<sup>7</sup> points per second on commodity hardware. 
-        Through optimized memory layout and warp-coherent traversal, the system maintains high efficiency while scaling gracefully with scene complexity. 
-        This throughput level supports training and evaluation of data-hungry embodied AI systems with realistic LiDAR feedback.
+        <b>Throughput.</b> Point throughput grows with sensor density and remains high across mesh complexities. 
+        Despite lower FPS, denser sensors (e.g., OS128, VLP32) achieve significantly higher throughput, exceeding 1×10<sup>8</sup> points/s on lightweight meshes and sustaining &gt;7.5×10<sup>7</sup> points/s even at multi-million triangle scales. 
+        This demonstrates that our method fully exploits BVH-accelerated parallelism and maintains high utilization across diverse LiDAR types.
       </p>
     </div>
   </div>
