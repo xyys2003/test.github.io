@@ -8,7 +8,6 @@
   <meta name="keywords" content="FGGS-LiDAR, 3D Gaussian Splatting, LiDAR simulation, TSDF, BVH, Ray Casting">
   <title>FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR</title>
 
-  <!-- Fonts & Styles -->
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
@@ -32,6 +31,10 @@
     .box {
       border-radius: 14px;
       padding: 10px;
+    }
+    p.explain {
+      margin-top: 8px;
+      text-align: justify;
     }
   </style>
 </head>
@@ -95,9 +98,8 @@
       We introduce a <i>prior-free</i> 3DGS-to-mesh pipeline based on volumetric discretization and narrow-band <b>TSDF</b>,
       producing watertight, topologically consistent meshes from arbitrary pretrained 3DGS models—without LiDAR-specific supervision or architectural changes.
       Paired with a fully GPU-accelerated, BVH-based ray-casting engine, our simulator renders first-hit ranges at <b>500+ FPS</b> on million-triangle scenes while preserving geometric fidelity.</p>
-      <p>On indoor/outdoor benchmarks, our simulations closely match scans rendered from real-scanned meshes
-      (e.g., indoor CD ≈ <b>4.07&nbsp;mm</b>, F-score <b>0.994</b>; outdoor CD ≈ <b>17.0&nbsp;mm</b>, F-score <b>0.982</b>).
-      The framework enables plug-and-play reuse of existing 3DGS assets for scalable, multi-modal simulation.</p>
+      <p>On indoor/outdoor benchmarks, our simulations closely match scans rendered from real-scanned meshes,
+      enabling plug-and-play reuse of existing 3DGS assets for scalable, multi-modal simulation.</p>
     </div>
   </div>
 </section>
@@ -110,30 +112,53 @@
     <div class="box">
       <h3 class="title is-5 has-text-centered">Pipeline Overview</h3>
       <img src="./static/images/teaser_01.png" alt="Pipeline Overview" class="figure">
+      <p class="explain">
+        The FGGS-LiDAR pipeline integrates Gaussian-based scene representation with geometric reconstruction and sensor simulation. 
+        It first converts a pretrained 3DGS model into voxelized occupancy fields, followed by TSDF fusion to reconstruct watertight surfaces. 
+        A GPU-based BVH acceleration structure enables real-time ray traversal for LiDAR simulation, achieving sub-millisecond per-frame rendering. 
+        This unified design bridges 3D Gaussian representations and high-fidelity LiDAR perception for downstream embodied tasks.
+      </p>
     </div>
 
     <div class="box">
       <h3 class="title is-5 has-text-centered">Scene Rendering</h3>
       <img src="./static/images/rendering_01.png" alt="Rendering" class="figure">
+      <p class="explain">
+        Our reconstructed meshes preserve the photometric and geometric details of the original 3DGS scenes. 
+        Compared with direct Gaussian splat rendering, the mesh-based representation provides consistent global structure, sharper boundaries, 
+        and accurate surface normals, which are essential for physically grounded LiDAR ray interactions. 
+        The resulting renderings demonstrate that our conversion process maintains fidelity while enabling real-time simulation.
+      </p>
     </div>
 
-    <div class="columns">
-      <div class="column">
-        <div class="box">
-          <h3 class="title is-6 has-text-centered">3DGS Voxelization</h3>
-          <img src="./static/images/voxelization_01.png" alt="Voxelization" class="figure">
-        </div>
-      </div>
-      <div class="column">
-        <div class="box">
-          <h3 class="title is-6 has-text-centered">Denoised → Mesh</h3>
-          <img src="./static/images/denoised_01.png" alt="Denoised" class="figure">
-        </div>
-      </div>
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">3DGS Voxelization</h3>
+      <img src="./static/images/voxelization_01.png" alt="Voxelization" class="figure">
+      <p class="explain">
+        We voxelize the continuous Gaussian fields into discrete occupancy volumes using an LBVH-accelerated accumulation process. 
+        Each Gaussian contributes probabilistically to local density fields, and a sparse voxel grid is efficiently updated on the GPU. 
+        This step captures fine geometric structures while maintaining high computational throughput, serving as the foundation for TSDF-based surface recovery.
+      </p>
     </div>
-        <div class="box">
-      <h3 class="title is-5 has-text-centered">LiDAR vs Depth</h3>
-      <img src="./static/images/depth_01.png" alt="Depth Artifacts" class="figure">
+
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">Denoised → Mesh</h3>
+      <img src="./static/images/denoised_01.png" alt="Denoised Mesh" class="figure">
+      <p class="explain">
+        To produce clean and watertight surfaces, we apply narrow-band TSDF propagation and surface extraction via Marching Cubes. 
+        The resulting meshes are further refined by structure-preserving smoothing to remove local artifacts without shrinking geometry. 
+        This ensures physically valid, topologically consistent meshes suitable for ray-based simulation and robotic perception benchmarks.
+      </p>
+    </div>
+
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">Depth Limitations</h3>
+      <img src="./static/images/depth_01.png" alt="Depth Limitations" class="figure">
+      <p class="explain">
+        Depth-based representations often suffer from missing regions, discontinuities, and unstable edges, especially under occlusion or reflective surfaces. 
+        Such artifacts lead to inaccurate geometry and hinder physically consistent simulation. 
+        Our approach overcomes these limitations by reconstructing continuous, watertight surfaces that preserve fine details and eliminate depth ambiguity.
+      </p>
     </div>
   </div>
 </section>
@@ -143,21 +168,24 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Results</h2>
 
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">LiDAR FPS vs Triangle Count</h3>
+      <img src="./static/images/lidar_fps_01.png" alt="LiDAR FPS" class="figure">
+      <p class="explain">
+        FGGS-LiDAR achieves stable real-time simulation performance across a wide range of mesh complexities. 
+        Even at multi-million triangle scales, our BVH-based ray traversal maintains near-logarithmic time complexity and consistent frame rates above 500 FPS. 
+        This enables efficient large-scale experiments with minimal computational overhead.
+      </p>
+    </div>
 
-
-    <div class="columns">
-      <div class="column">
-        <div class="box">
-          <h3 class="title is-6 has-text-centered">LiDAR FPS vs Triangle Count</h3>
-          <img src="./static/images/lidar_fps_01.png" alt="LiDAR FPS" class="figure">
-        </div>
-      </div>
-      <div class="column">
-        <div class="box">
-          <h3 class="title is-6 has-text-centered">LiDAR Throughput vs Triangle Count</h3>
-          <img src="./static/images/lidar_throughput_01.png" alt="LiDAR Throughput" class="figure">
-        </div>
-      </div>
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">LiDAR Throughput vs Triangle Count</h3>
+      <img src="./static/images/lidar_throughput_01.png" alt="LiDAR Throughput" class="figure">
+      <p class="explain">
+        The GPU-parallelized LiDAR simulator reaches an effective throughput exceeding 7.5×10<sup>7</sup> points per second on commodity hardware. 
+        Through optimized memory layout and warp-coherent traversal, the system maintains high efficiency while scaling gracefully with scene complexity. 
+        This throughput level supports training and evaluation of data-hungry embodied AI systems with realistic LiDAR feedback.
+      </p>
     </div>
   </div>
 </section>
@@ -175,7 +203,14 @@
   </div>
 </section>
 
-
+<footer class="footer">
+  <div class="container has-text-centered">
+    <a class="button is-small is-dark is-rounded" href="static/pdf/paper.pdf">Paper (PDF)</a>
+    <a class="button is-small is-dark is-rounded" href="https://github.com/TATP-233/FGGS-LiDAR">Code</a>
+    <a class="button is-small is-dark is-rounded" href="https://arxiv.org/abs/2509.17390">arXiv</a>
+    <p style="margin-top:10px;">Template adapted from the Nerfies project page. CC BY-SA 4.0.</p>
+  </div>
+</footer>
 
 </body>
 </html>
