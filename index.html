@@ -20,21 +20,56 @@
       border-radius: 12px;
       display: block;
       margin: 0 auto;
+      box-shadow: none; /* remove any default shadows */
     }
+
     video.demo {
       width: 100%;
       max-height: 520px;
       border-radius: 12px;
       display: block;
       margin: 0 auto;
+      box-shadow: none;
     }
+
+    /* Remove Bulma box borders and background */
     .box {
-      border-radius: 14px;
-      padding: 10px;
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      padding: 0 !important;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
     }
+
+    /* Better paragraph layout */
     p.explain {
-      margin-top: 8px;
+      margin-top: 12px;
       text-align: justify;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Spacing between title and figures */
+    h3.title {
+      margin-bottom: 1rem;
+    }
+
+    /* More comfortable section spacing */
+    section.section {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    /* Footer text color */
+    footer.footer p {
+      color: #555;
+    }
+
+    /* Optional: light hover effect on images */
+    img.figure:hover {
+      transform: scale(1.01);
+      transition: transform 0.25s ease-in-out;
     }
   </style>
 </head>
@@ -94,12 +129,17 @@
   <div class="container is-max-desktop has-text-centered">
     <h2 class="title is-3">Abstract</h2>
     <div class="content has-text-justified">
-      <p><b>FGGS-LiDAR</b> bridges general 3D Gaussian Splatting (3DGS) assets and high-performance LiDAR simulation.
-      We introduce a <i>prior-free</i> 3DGS-to-mesh pipeline based on volumetric discretization and narrow-band <b>TSDF</b>,
-      producing watertight, topologically consistent meshes from arbitrary pretrained 3DGS models—without LiDAR-specific supervision or architectural changes.
-      Paired with a fully GPU-accelerated, BVH-based ray-casting engine, our simulator renders first-hit ranges at <b>500+ FPS</b> on million-triangle scenes while preserving geometric fidelity.</p>
-      <p>On indoor/outdoor benchmarks, our simulations closely match scans rendered from real-scanned meshes,
-      enabling plug-and-play reuse of existing 3DGS assets for scalable, multi-modal simulation.</p>
+      <p>
+        While <b>3D Gaussian Splatting (3DGS)</b> has revolutionized photorealistic rendering, its vast ecosystem of assets remains incompatible with high-performance LiDAR simulation, a critical tool for robotics and autonomous driving.
+        We present <b>FGGS-LiDAR</b>, a framework that bridges this gap with a truly plug-and-play approach.
+        Our method converts <i>any</i> pretrained 3DGS model into a high-fidelity, watertight mesh without requiring LiDAR-specific supervision or architectural alterations.
+      </p>
+      <p>
+        This conversion is achieved through a general pipeline of volumetric discretization and <b>Truncated Signed Distance Field (TSDF)</b> extraction.
+        We pair this with a highly optimized, GPU-accelerated ray-casting module that simulates LiDAR returns at over <b>500 FPS</b>.
+        We validate our approach on indoor and outdoor scenes, demonstrating exceptional geometric fidelity.
+        By enabling the direct reuse of 3DGS assets for geometrically accurate depth sensing, our framework extends their utility beyond visualization and unlocks new capabilities for scalable, multimodal simulation.
+      </p>
     </div>
   </div>
 </section>
