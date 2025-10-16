@@ -14,32 +14,32 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
-  <!-- 仅用于最小依赖 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-  <!-- 关键样式：去掉 PDF 外框/工具栏，并圆角 -->
   <style>
-    .pdf-box { border-radius: 12px; overflow: hidden; }
-    .pdf-embed {
+    img.figure {
       width: 100%;
-      height: 560px;     /* 按需调高 */
-      border: none;      /* 去边框 */
-      outline: none;     /* 去轮廓 */
+      height: auto;
+      border-radius: 12px;
       display: block;
+      margin: 0 auto;
     }
-    /* 双列 PDF 稍微矮一点 */
-    .pdf-embed.sm { height: 480px; }
+    video.demo {
+      width: 100%;
+      max-height: 520px;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto;
+    }
+    .box {
+      border-radius: 14px;
+      padding: 10px;
+    }
   </style>
 </head>
+
 <body>
 
-<!-- Navbar（极简） -->
+<!-- Navbar -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-    </a>
-  </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
       <a class="navbar-item" href="#top">Home</a>
@@ -54,64 +54,33 @@
 <!-- Hero -->
 <section id="top" class="hero">
   <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-2 publication-title">
-            FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR
-          </h1>
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-2 publication-title">
+        FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR
+      </h1>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">Junzhe Wu<sup>1</sup>,</span>
-            <span class="author-block">Yufei Jia<sup>2</sup>,</span>
-            <span class="author-block">Yiyi Yan<sup>3</sup>,</span>
-            <span class="author-block">Zhixing Chen<sup>1</sup>,</span>
-            <span class="author-block">Tiao Tan<sup>1</sup>,</span>
-            <span class="author-block">Zifan Wang<sup>4</sup>,</span>
-            <span class="author-block">Guangyu Wang<sup>1</sup>,</span>
-            <span class="author-block">BoKui Chen<sup>1†</sup>,</span>
-            <span class="author-block">Guyue Zhou<sup>5†</sup></span>
-          </div>
-          <div class="is-size-6 publication-authors">
-            <span class="author-block"><sup>1</sup>Tsinghua University (Shenzhen)</span> ·
-            <span class="author-block"><sup>2</sup>Tsinghua University (Beijing)</span> ·
-            <span class="author-block"><sup>3</sup>DISCOVER Robotics</span> ·
-            <span class="author-block"><sup>4</sup>HKUST (Guangzhou)</span> ·
-            <span class="author-block"><sup>5</sup>AIR, Tsinghua University</span>
-          </div>
+      <p class="is-size-5">Junzhe Wu<sup>1</sup>, Yufei Jia<sup>2</sup>, Yiyi Yan<sup>3</sup>, Zhixing Chen<sup>1</sup>, Tiao Tan<sup>1</sup>, Zifan Wang<sup>4</sup>, Guangyu Wang<sup>1</sup>, BoKui Chen<sup>1†</sup>, Guyue Zhou<sup>5†</sup></p>
+      <p class="is-size-6"><sup>1</sup>Tsinghua Univ. (Shenzhen) · <sup>2</sup>Tsinghua Univ. (Beijing) · <sup>3</sup>DISCOVER Robotics · <sup>4</sup>HKUST (Guangzhou) · <sup>5</sup>AIR, Tsinghua Univ.</p>
 
-          <!-- Links（无图标按钮） -->
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="static/pdf/paper.pdf" class="external-link button is-normal is-rounded is-dark">Paper (PDF)</a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2509.17390" class="external-link button is-normal is-rounded is-dark">arXiv</a>
-              </span>
-              <span class="link-block">
-                <a href="https://github.com/TATP-233/FGGS-LiDAR" class="external-link button is-normal is-rounded is-dark">Code</a>
-              </span>
-            </div>
-          </div>
-
-        </div>
+      <div class="buttons is-centered" style="margin-top:10px;">
+        <a href="static/pdf/paper.pdf" class="button is-dark is-rounded">Paper (PDF)</a>
+        <a href="https://arxiv.org/abs/2509.17390" class="button is-dark is-rounded">arXiv</a>
+        <a href="https://github.com/TATP-233/FGGS-LiDAR" class="button is-dark is-rounded">Code</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Demo Video（仅本地演示） -->
+<!-- Demo -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="demo" controls autoplay muted playsinline preload="metadata"
-             style="width:100%;max-height:520px;border-radius:12px;">
+      <video class="demo" controls autoplay muted loop playsinline>
         <source src="./static/videos/demo_show.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+        Your browser does not support HTML5 video.
       </video>
       <h2 class="subtitle has-text-centered" style="margin-top:12px;">
-        End-to-end pipeline demo (3DGS → Mesh → LiDAR).
+        End-to-end pipeline demo (3DGS → Mesh → LiDAR)
       </h2>
     </div>
   </div>
@@ -119,24 +88,16 @@
 
 <!-- Abstract -->
 <section id="abstract" class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            <b>FGGS-LiDAR</b> bridges general 3D Gaussian Splatting (3DGS) assets and high-performance LiDAR simulation.
-            We introduce a <i>prior-free</i> 3DGS-to-mesh pipeline based on volumetric discretization and narrow-band <b>TSDF</b>,
-            producing watertight, topologically consistent meshes from arbitrary pretrained 3DGS models—without LiDAR-specific supervision or architectural changes.
-            Paired with a fully GPU-accelerated, BVH-based ray-casting engine, our simulator renders first-hit ranges at <b>500+ FPS</b> on million-triangle scenes while preserving geometric fidelity.
-          </p>
-          <p>
-            On indoor/outdoor benchmarks, our simulations closely match scans rendered from real-scanned meshes
-            (e.g., indoor CD ≈ <b>4.07&nbsp;mm</b>, F-score <b>0.994</b>; outdoor CD ≈ <b>17.0&nbsp;mm</b>, F-score <b>0.982</b>).
-            The framework enables plug-and-play reuse of existing 3DGS assets for scalable, multi-modal simulation.
-          </p>
-        </div>
-      </div>
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Abstract</h2>
+    <div class="content has-text-justified">
+      <p><b>FGGS-LiDAR</b> bridges general 3D Gaussian Splatting (3DGS) assets and high-performance LiDAR simulation.
+      We introduce a <i>prior-free</i> 3DGS-to-mesh pipeline based on volumetric discretization and narrow-band <b>TSDF</b>,
+      producing watertight, topologically consistent meshes from arbitrary pretrained 3DGS models—without LiDAR-specific supervision or architectural changes.
+      Paired with a fully GPU-accelerated, BVH-based ray-casting engine, our simulator renders first-hit ranges at <b>500+ FPS</b> on million-triangle scenes while preserving geometric fidelity.</p>
+      <p>On indoor/outdoor benchmarks, our simulations closely match scans rendered from real-scanned meshes
+      (e.g., indoor CD ≈ <b>4.07&nbsp;mm</b>, F-score <b>0.994</b>; outdoor CD ≈ <b>17.0&nbsp;mm</b>, F-score <b>0.982</b>).
+      The framework enables plug-and-play reuse of existing 3DGS assets for scalable, multi-modal simulation.</p>
     </div>
   </div>
 </section>
@@ -144,49 +105,30 @@
 <!-- Method -->
 <section id="method" class="section">
   <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Method</h2>
-        <div class="content has-text-justified">
-          <ol>
-            <li><b>3DGS → Occupancy Volume (LBVH-accelerated):</b> AABB per Gaussian, LBVH construction, tile-wise culling & density accumulation, occupancy thresholding, surface voxel extraction.</li>
-            <li><b>Narrow-band TSDF & Isosurface:</b> outside flood-fill for robust sign, layered distance propagation & truncation; Marching Cubes, structure-first simplification & non-shrinking smoothing.</li>
-            <li><b>GPU LiDAR Ray-Casting:</b> per-beam BVH traversal with early termination; SoA layout, shared caching, warp-coherent traversal for high throughput.</li>
-          </ol>
-        </div>
+    <h2 class="title is-3 has-text-centered">Method</h2>
 
-        <!-- Pipeline 总图（PDF，无外框） -->
-        <div class="box pdf-box">
-          <h3 class="title is-5 has-text-centered">Pipeline Overview</h3>
-          <iframe class="pdf-embed"
-                  src="./static/images/teaser.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
-        </div>
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">Pipeline Overview</h3>
+      <img src="./static/images/teaser_01.png" alt="Pipeline Overview" class="figure">
+    </div>
 
-        <!-- 渲染示例（PDF，无外框） -->
-        <div class="box pdf-box">
-          <h3 class="title is-5 has-text-centered">Scene Rendering</h3>
-          <iframe class="pdf-embed"
-                  src="./static/images/rendering.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
-        </div>
+    <div class="box">
+      <h3 class="title is-5 has-text-centered">Scene Rendering</h3>
+      <img src="./static/images/rendering_01.png" alt="Rendering" class="figure">
+    </div>
 
-        <!-- 体素化 / 网格化（PDF）两列并排 -->
-        <div class="columns">
-          <div class="column">
-            <div class="box pdf-box">
-              <h3 class="title is-6 has-text-centered">3DGS Voxelization</h3>
-              <iframe class="pdf-embed sm"
-                      src="./static/images/voxelization.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
-            </div>
-          </div>
-          <div class="column">
-            <div class="box pdf-box">
-              <h3 class="title is-6 has-text-centered">Denoised → Mesh</h3>
-              <iframe class="pdf-embed sm"
-                      src="./static/images/denoised.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
-            </div>
-          </div>
+    <div class="columns">
+      <div class="column">
+        <div class="box">
+          <h3 class="title is-6 has-text-centered">3DGS Voxelization</h3>
+          <img src="./static/images/voxelization_01.png" alt="Voxelization" class="figure">
         </div>
-
+      </div>
+      <div class="column">
+        <div class="box">
+          <h3 class="title is-6 has-text-centered">Denoised → Mesh</h3>
+          <img src="./static/images/denoised_01.png" alt="Denoised" class="figure">
+        </div>
       </div>
     </div>
   </div>
@@ -197,32 +139,25 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Results</h2>
 
-    <!-- LiDAR vs Depth（PDF，无外框） -->
-    <div class="box pdf-box">
+    <div class="box">
       <h3 class="title is-5 has-text-centered">LiDAR vs Depth</h3>
-      <iframe class="pdf-embed"
-              src="./static/images/depth.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
+      <img src="./static/images/depth_01.png" alt="LiDAR vs Depth" class="figure">
     </div>
 
-    <!-- FPS & Throughput（PDF）两列并排 -->
     <div class="columns">
       <div class="column">
-        <div class="box pdf-box">
+        <div class="box">
           <h3 class="title is-6 has-text-centered">LiDAR FPS vs Triangle Count</h3>
-          <iframe class="pdf-embed sm"
-                  src="./static/images/lidar_fps.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
+          <img src="./static/images/lidar_fps_01.png" alt="LiDAR FPS" class="figure">
         </div>
       </div>
       <div class="column">
-        <div class="box pdf-box">
+        <div class="box">
           <h3 class="title is-6 has-text-centered">LiDAR Throughput vs Triangle Count</h3>
-          <!-- 如果你的真实文件是 throughput，请把文件名和这里都改成 lidar_throughput.pdf -->
-          <iframe class="pdf-embed sm"
-                  src="./static/images/lidar_throught.pdf#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&view=FitH"></iframe>
+          <img src="./static/images/lidar_throughput_01.png" alt="LiDAR Throughput" class="figure">
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -241,19 +176,11 @@
 
 <!-- Footer -->
 <footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="button is-small is-dark is-rounded" href="static/pdf/paper.pdf">Paper (PDF)</a>
-      <a class="button is-small is-dark is-rounded" href="https://github.com/TATP-233/FGGS-LiDAR">Code</a>
-      <a class="button is-small is-dark is-rounded" href="https://arxiv.org/abs/2509.17390">arXiv</a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content has-text-centered">
-          <p>Template adapted from the Nerfies project page. CC BY-SA 4.0.</p>
-        </div>
-      </div>
-    </div>
+  <div class="container has-text-centered">
+    <a class="button is-small is-dark is-rounded" href="static/pdf/paper.pdf">Paper (PDF)</a>
+    <a class="button is-small is-dark is-rounded" href="https://github.com/TATP-233/FGGS-LiDAR">Code</a>
+    <a class="button is-small is-dark is-rounded" href="https://arxiv.org/abs/2509.17390">arXiv</a>
+    <p style="margin-top:10px;">Template adapted from the Nerfies project page. CC BY-SA 4.0.</p>
   </div>
 </footer>
 
